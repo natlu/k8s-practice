@@ -3,12 +3,10 @@ kind: Service
 metadata:
   name: demo-svc
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: demo
   ports:
-    - name: http
-      nodePort: 30080
-      protocol: TCP
+    - protocol: TCP
       port: 1234
       targetPort: 8080
