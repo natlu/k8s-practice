@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loggerout-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loggerout
+  template:
+    metadata:
+      labels:
+        app: loggerout
+    spec:
+      containers:
+        - name: loggerout
+          image: enayetee/loggerout
