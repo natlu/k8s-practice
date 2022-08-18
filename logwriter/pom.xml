@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>loggerout</artifactId>
+	<artifactId>logwriter</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>loggerout</name>
+	<name>logwriter</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
