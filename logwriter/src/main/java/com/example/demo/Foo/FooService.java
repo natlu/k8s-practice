@@ -3,6 +3,9 @@ package com.example.demo.Foo;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Random;
@@ -21,8 +24,20 @@ public class FooService {
         Random rand = new Random();
         int upperbound = 99;
         currLog = String.valueOf(rand.nextInt(upperbound));
-        System.out.println(timeStamp  + ":" + currLog);
+        writeToFile(timeStamp  + ":" + currLog);
     }
+
+    public static void writeToFile(String contents) {
+        try {
+            FileWriter myWriter = new FileWriter("filename.txt");
+            myWriter.write(contents);
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
 
 }
 
