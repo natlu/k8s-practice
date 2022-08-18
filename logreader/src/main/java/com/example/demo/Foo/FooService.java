@@ -1,30 +1,35 @@
 package com.example.demo.Foo;
 
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Random;
+import java.util.Scanner;
 
 @Service
 public class FooService {
-    private static final String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-    String currLog;
 
     public String getFoo() {
-        return currLog;
+        String data = readLog();
+        System.out.println(data);
+        return data;
     }
 
-    @Scheduled(fixedRate=5000)
-    public void genLog() {
-        Random rand = new Random();
-        int upperbound = 99;
-        currLog = String.valueOf(rand.nextInt(upperbound));
-        writeToFile(timeStamp  + ":" + currLog);
+    public static String readLog() {
+        try {
+            File myObj = new File("filename.txt");
+            Scanner myReader = new Scanner(myObj);
+            // know it's only 1 line so no iteration needed
+            String data = myReader.nextLine();
+            myReader.close();
+            return data;
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+            return "sad";
+        }
     }
 
     public static void writeToFile(String contents) {
