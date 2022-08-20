@@ -11,6 +11,8 @@ import java.util.Scanner;
 @Service
 public class FooService {
 
+    private static final String fileDir = System.getenv("FILE_DIR") + "/filename.txt";
+
     public String getFoo() {
         String data = readLog();
         System.out.println(data);
@@ -19,7 +21,7 @@ public class FooService {
 
     public static String readLog() {
         try {
-            File myObj = new File("filename.txt");
+            File myObj = new File(fileDir);
             Scanner myReader = new Scanner(myObj);
             // know it's only 1 line so no iteration needed
             String data = myReader.nextLine();
@@ -34,7 +36,7 @@ public class FooService {
 
     public static void writeToFile(String contents) {
         try {
-            FileWriter myWriter = new FileWriter("filename.txt");
+            FileWriter myWriter = new FileWriter(fileDir);
             myWriter.write(contents);
             myWriter.close();
         } catch (IOException e) {

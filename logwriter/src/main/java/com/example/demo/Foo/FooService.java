@@ -13,6 +13,7 @@ import java.util.Random;
 @Service
 public class FooService {
     private static final String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+    private static final String fileDir = System.getenv("FILE_DIR") + "/filename.txt";
     String currLog;
 
     public String getFoo() {
@@ -29,7 +30,7 @@ public class FooService {
 
     public static void writeToFile(String contents) {
         try {
-            FileWriter myWriter = new FileWriter("filename.txt");
+            FileWriter myWriter = new FileWriter(fileDir);
             myWriter.write(contents);
             myWriter.close();
         } catch (IOException e) {

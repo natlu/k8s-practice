@@ -12,6 +12,23 @@ spec:
       labels:
         app: loggerout
     spec:
+      volumes:
+        - name: shared-img
+          emptyDir: {}
       containers:
-        - name: loggerout
-          image: enayetee/loggerout
+        - name: logwriter
+          image: enayetee/logwriter
+          env:
+            - name: FILE_DIR
+              value: /usr/src/app/files
+          volumeMounts:
+            - name: shared-img
+              mountPath: /usr/src/app/files
+        - name: logreader
+          image: enayetee/logreader
+          env:
+            - name: FILE_DIR
+              value: /usr/src/app/files
+          volumeMounts:
+            - name: shared-img
+              mountPath: /usr/src/app/files
