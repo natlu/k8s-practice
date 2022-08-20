@@ -12,14 +12,17 @@ import java.util.Scanner;
 public class FooService {
 
     private static final String fileDir = System.getenv("FILE_DIR") + "/filename.txt";
+    private static final String pingpongDir = System.getenv("FILE_DIR") + "/pingpong.txt";
 
     public String getFoo() {
-        String data = readLog();
+        String data = readLog(fileDir);
         System.out.println(data);
-        return data;
+        String dataPingPong = readLog(pingpongDir);
+        System.out.println(dataPingPong);
+        return data + "\n" + dataPingPong;
     }
 
-    public static String readLog() {
+    public String readLog(String fileDir) {
         try {
             File myObj = new File(fileDir);
             Scanner myReader = new Scanner(myObj);
@@ -33,18 +36,6 @@ public class FooService {
             return "sad";
         }
     }
-
-    public static void writeToFile(String contents) {
-        try {
-            FileWriter myWriter = new FileWriter(fileDir);
-            myWriter.write(contents);
-            myWriter.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }
-
 
 }
 

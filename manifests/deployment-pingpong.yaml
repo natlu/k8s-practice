@@ -12,6 +12,17 @@ spec:
       labels:
         app: pingpong
     spec:
+      volumes:
+        - name: shared-img
+          persistentVolumeClaim:
+            claimName: image-claim
       containers:
         - name: pingpong
           image: enayetee/pingpong
+          env:
+            - name: FILE_DIR
+              value: /usr/src/app/files
+          volumeMounts:
+            - name: shared-img
+              mountPath: /usr/src/app/files
+

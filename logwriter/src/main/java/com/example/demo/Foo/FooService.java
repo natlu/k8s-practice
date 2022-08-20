@@ -10,10 +10,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Random;
 
+import static com.example.demo.DemoApplication.fileDir;
+
 @Service
 public class FooService {
     private static final String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-    private static final String fileDir = System.getenv("FILE_DIR") + "/filename.txt";
     String currLog;
 
     public String getFoo() {
@@ -28,7 +29,7 @@ public class FooService {
         writeToFile(timeStamp  + ":" + currLog);
     }
 
-    public static void writeToFile(String contents) {
+    public void writeToFile(String contents) {
         try {
             FileWriter myWriter = new FileWriter(fileDir);
             myWriter.write(contents);

@@ -11,6 +11,8 @@ import java.io.IOException;
 @EnableScheduling
 public class DemoApplication {
 
+	public static final String fileDir = System.getenv("FILE_DIR") + "/filename.txt";
+
 	public static void main(String[] args) {
 		createFile();
 		SpringApplication.run(DemoApplication.class, args);
@@ -18,7 +20,7 @@ public class DemoApplication {
 
 	public static void createFile() {
 		try {
-			File myObj = new File("filename.txt");
+			File myObj = new File(fileDir);
 			if (myObj.createNewFile()) {
 				System.out.println("File created: " + myObj.getName());
 			} else {

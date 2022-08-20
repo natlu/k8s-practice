@@ -14,7 +14,8 @@ spec:
     spec:
       volumes:
         - name: shared-img
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: image-claim
       containers:
         - name: logwriter
           image: enayetee/logwriter
