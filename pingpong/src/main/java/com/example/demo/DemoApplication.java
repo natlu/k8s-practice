@@ -14,7 +14,6 @@ public class DemoApplication {
 
 	public static void main(String[] args) {
 		createFile();
-		writeToFile("Ping / Pongs: " + String.valueOf(0));
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
@@ -23,6 +22,7 @@ public class DemoApplication {
 			File myObj = new File(pingpongDir);
 			if (myObj.createNewFile()) {
 				System.out.println("File created: " + myObj.getName());
+				writeToFile("Ping / Pongs: " + String.valueOf(0));
 			} else {
 				System.out.println("File already exists.");
 			}
