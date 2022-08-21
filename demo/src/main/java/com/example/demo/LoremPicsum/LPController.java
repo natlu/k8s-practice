@@ -1,12 +1,11 @@
 package com.example.demo.LoremPicsum;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping(path = "api/v1/lp")
+@Controller
 public class LPController {
     private final LPService lpService;
 
@@ -15,12 +14,17 @@ public class LPController {
         this.lpService = lpService;
     }
 
-    @GetMapping
-    public int getLP() {
-        return lpService.getLP();
+    @GetMapping("/lp")
+    public String getLP(Model model) {
+        model.addAttribute("imageDir", "image.jpg");
+        //lpService.getLP();
+        return "lp";
     }
 
+
+    //@RequestMapping(path = "lp")
     @GetMapping(value="/test")
+    @ResponseBody
     public String foo() {
         return lpService.foo();
     }

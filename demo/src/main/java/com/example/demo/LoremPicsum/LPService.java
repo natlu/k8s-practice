@@ -29,7 +29,7 @@ public class LPService {
         // return ldt.toString();
     }
 
-    public int getLP() {
+    public void getLP() {
 
         try {
             downloadLP();
@@ -37,9 +37,6 @@ public class LPService {
             // handle IOException
             System.out.printf("TODO");
         }
-        Random rand = new Random();
-        int upperbound = 99;
-        return rand.nextInt(upperbound);
     }
 
     private long getTodaysEpoch() {
