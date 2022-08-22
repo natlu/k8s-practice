@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <p th:text="'Hello, ' + ${imageDir} + '!'" />
+    <img th:src="@{${imageDir}}" />
+<!--    <img th:src="@{/images/test.png}"/>-->
 </body>
 </html>

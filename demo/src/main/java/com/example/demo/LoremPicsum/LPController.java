@@ -16,7 +16,7 @@ public class LPController {
 
     @GetMapping("/lp")
     public String getLP(Model model) {
-        model.addAttribute("imageDir", "image.jpg");
+        model.addAttribute("imageDir", "/images/image.jpg");
         //lpService.getLP();
         return "lp";
     }

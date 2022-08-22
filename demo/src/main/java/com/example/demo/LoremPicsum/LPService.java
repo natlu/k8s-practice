@@ -18,7 +18,7 @@ import java.util.Set;
 
 @Service
 public class LPService {
-    private final String fileName = "image.jpg";
+    private final String fileName = "src/main/resources/static/images/image.jpg";
 
     public String foo() {
         long lm = new File(fileName).lastModified();
