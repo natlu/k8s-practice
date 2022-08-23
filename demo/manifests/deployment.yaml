@@ -12,6 +12,14 @@ spec:
       labels:
         app: demo
     spec:
+      volumes:
+        - name: shared-img
+          persistentVolumeClaim:
+            claimName: image-claim
       containers:
         - name: demo
           image: enayetee/demo
+          volumeMounts:
+            - name: shared-img
+              mountPath: /uploads
+
