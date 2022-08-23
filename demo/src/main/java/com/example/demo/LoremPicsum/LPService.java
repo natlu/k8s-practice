@@ -3,22 +3,17 @@ package com.example.demo.LoremPicsum;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageOutputStream;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.IOException;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.Random;
 import java.net.URL;
 import java.io.File;
-import java.util.Set;
 
 @Service
 public class LPService {
-    private final String fileName = "src/main/resources/static/images/image.jpg";
+    private final String fileName = "uploads/image.jpg";
+
 
     public String foo() {
         long lm = new File(fileName).lastModified();
@@ -30,12 +25,16 @@ public class LPService {
     }
 
     public void getLP() {
-
-        try {
-            downloadLP();
-        } catch (IOException e) {
-            // handle IOException
-            System.out.printf("TODO");
+//        if (true) {
+        if (imageExpired()) {
+            try {
+                downloadLP();
+            } catch (IOException e) {
+                // handle IOException
+                System.out.printf("TODO");
+            }
+        } else {
+            System.out.println("not exp");
         }
     }
 
