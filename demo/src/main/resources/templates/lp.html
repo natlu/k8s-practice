@@ -6,5 +6,16 @@
 </head>
 <body>
     <img th:src="@{${imageDir}}" />
+
+    <form action="/action_page.php">
+        <label for="todo">TODO</label>
+        <input type="text" id="todo" name="todo" maxlength="140">
+        <input type="submit" value="create TODO">
+    </form>
+
+    <tr th:each="x : ${mylist}">
+        <li th:text="${x}"/>
+    </tr>
+
 </body>
 </html>
