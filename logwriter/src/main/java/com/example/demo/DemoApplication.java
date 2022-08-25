@@ -11,7 +11,7 @@ import java.io.IOException;
 @EnableScheduling
 public class DemoApplication {
 
-	public static final String fileDir = System.getenv("FILE_DIR") + "/filename.txt";
+	public static final String fileDir = System.getenv("FILE_DIR") + "/logwriter.txt";
 
 	public static void main(String[] args) {
 		createFile();

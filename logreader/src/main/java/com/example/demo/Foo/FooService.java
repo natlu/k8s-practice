@@ -2,23 +2,53 @@ package com.example.demo.Foo;
 
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Scanner;
 
 @Service
 public class FooService {
 
-    private static final String fileDir = System.getenv("FILE_DIR") + "/filename.txt";
+    private static final String fileDir = System.getenv("FILE_DIR") + "/logwriter.txt";
     private static final String pingpongDir = System.getenv("FILE_DIR") + "/pingpong.txt";
+
 
     public String getFoo() {
         String data = readLog(fileDir);
         System.out.println(data);
-        String dataPingPong = readLog(pingpongDir);
-        System.out.println(dataPingPong);
+//        String dataPingPong = readLog(pingpongDir);
+//        System.out.println(dataPingPong);
+
+        String dataPingPong;
+        try {
+            URL url = new URL("http://pingpong-svc/pingpong/current");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Content-Type", "text/html; charset=UTF-8");
+            con.setConnectTimeout(2000);
+            con.setReadTimeout(1000);
+            int status = con.getResponseCode();
+            System.out.printf("response status" + status);
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            in.close();
+            con.disconnect();
+            dataPingPong = content.toString();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            dataPingPong="no ping pong";
+        } catch (IOException e) {
+            e.printStackTrace();
+            dataPingPong="no ping pong!";
+        }
+
         return data + "\n" + dataPingPong;
     }
 
