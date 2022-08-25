@@ -16,8 +16,12 @@ public class PingPongController {
     }
 
     @GetMapping
+    public String doPong() {
+        return ppService.doPong();
+    }
+
+    @GetMapping(path = "current")
     public String getPong() {
         return ppService.getPong();
     }
-
 }
