@@ -1,4 +1,4 @@
-package com.example.demo.LoremPicsum;
+package com.learn.demo.LoremPicsum;
 
 import org.springframework.stereotype.Service;
 

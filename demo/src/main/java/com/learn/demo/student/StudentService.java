@@ -1,4 +1,4 @@
-package com.example.demo.student;
+package com.learn.demo.student;
 
 import org.springframework.stereotype.Service;
 

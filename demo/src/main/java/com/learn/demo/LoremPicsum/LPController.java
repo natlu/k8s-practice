@@ -1,4 +1,4 @@
-package com.example.demo.LoremPicsum;
+package com.learn.demo.LoremPicsum;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
