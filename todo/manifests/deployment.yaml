@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo
+  template:
+    metadata:
+      labels:
+        app: todo
+    spec:
+      volumes:
+        - name: shared-img
+          persistentVolumeClaim:
+            claimName: image-claim
+      containers:
+        - name: todo
+          image: enayetee/todo
+          volumeMounts:
+            - name: shared-img
+              mountPath: /uploads
+
