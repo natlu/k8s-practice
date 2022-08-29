@@ -2,19 +2,21 @@ package com.learn.todo;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @Service
 public class TodoService {
 
-    public int getTodo() {
-        Random rand = new Random();
-        int upperbound = 99;
-        return rand.nextInt(upperbound);
+    List<String> todo = new ArrayList<String>();
+
+    public List<String> getTodo() {
+        return todo;
     }
 
     public void addTodo(String todoItem) {
-        System.out.printf(todoItem);
+        todo.add(todoItem);
     }
 
 }

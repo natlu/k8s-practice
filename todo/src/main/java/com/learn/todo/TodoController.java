@@ -3,6 +3,8 @@ package com.learn.todo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "api/v1/todo")
 public class TodoController {
@@ -14,7 +16,7 @@ public class TodoController {
     }
 
     @GetMapping
-    public int getTodo() {
+    public List<String> getTodo() {
         return todoService.getTodo();
 
     }
