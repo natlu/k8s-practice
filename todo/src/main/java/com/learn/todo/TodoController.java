@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/todo")
+@RequestMapping(path = "todo/api/v1/todo")
 public class TodoController {
     private final TodoService todoService;
 

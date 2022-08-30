@@ -7,7 +7,8 @@ spec:
   selector:
     app: demo
   ports:
-    - protocol: TCP
+    - name: demo1234
+      protocol: TCP
       port: 1234
       targetPort: 8080
     - name: http
