@@ -1,0 +1,9 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+    name: exercise
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+    name: project
