@@ -1,15 +1,15 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: demo-ingress
+  name: todo-ingress
 spec:
   rules:
   - http:
       paths:
-      - path: /demo
+      - path: /todo
         pathType: Prefix
         backend:
           service:
-            name: demo-svc
+            name: todo-svc
             port:
-              number: 1234
+              number: 1111

@@ -1,18 +1,18 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: demo-svc
+  name: todo-svc
 spec:
   type: ClusterIP
   selector:
-    app: demo
+    app: todo
   ports:
-    - name: demo1234
+    - name: todo1111
       protocol: TCP
-      port: 1234
-      targetPort: 8080
+      port: 1111
+      targetPort: 8888
     - name: http
       protocol: TCP
       port: 80
-      targetPort: 8080
+      targetPort: 8888
 

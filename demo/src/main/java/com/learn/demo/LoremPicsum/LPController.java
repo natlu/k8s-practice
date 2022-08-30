@@ -1,4 +1,4 @@
-package com.example.demo.LoremPicsum;
+package com.learn.demo.LoremPicsum;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,14 +12,6 @@ import java.util.List;
 public class LPController {
     private final LPService lpService;
 
-    private List<String> dummyList() {
-        List<String> llist=new LinkedList<>();
-        llist.add("a");
-        llist.add("b");
-        llist.add("c");
-        return llist;
-    }
-
     @Autowired
     public LPController(LPService lpService) {
         this.lpService = lpService;
@@ -29,16 +21,21 @@ public class LPController {
     public String getLP(Model model) {
         lpService.getLP();
         model.addAttribute("imageDir", "/uploads/image.jpg");
-        model.addAttribute("mylist", dummyList());
+        model.addAttribute("mylist", lpService.getTodo());
         return "lp";
     }
 
+    @PostMapping("/todo")
+    public String addTodo(@RequestParam String todoItem) {
+        lpService.postTodo(todoItem);
+        return "redirect:/lp";
+    }
 
     //@RequestMapping(path = "lp")
-    @GetMapping(value="/test")
+    @GetMapping(value="demo/test")
     @ResponseBody
-    public String foo() {
-        return lpService.foo();
+    public List<String> getTodo() {
+        return lpService.getTodo();
     }
 }
 
