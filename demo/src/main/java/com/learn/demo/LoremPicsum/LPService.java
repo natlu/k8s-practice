@@ -1,18 +1,21 @@
 package com.learn.demo.LoremPicsum;
 
+import org.json.JSONArray;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.http.HttpClient;
+import java.nio.charset.StandardCharsets;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.net.URL;
-import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class LPService {
@@ -20,25 +23,41 @@ public class LPService {
 
 
     String todo;
+    List<String> todoList;
 
-    public String foo() {
-//        long lm = new File(fileName).lastModified();
-//        Instant instant = Instant.ofEpochMilli(lm);
-//        return instant.toString();
-
-        // ZoneId zid = ZoneId.of("Antarctica/Casey");
-        // LocalDateTime ldt = LocalDateTime.ofInstant(instant, zid);
-        // return ldt.toString();
-
+    public void postTodo(String payload) {
         try {
-            URL url = new URL("http://todo-svc/api/v1/todo");
+//            URL url = new URL("http://todo-svc/todo/api/v1/todo");
+            URL url = new URL("http://127.0.0.1:8081/todo/api/v1/todo");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Content-Type", "text/plain; charset=UTF-8");
+            con.setRequestProperty("Accept", "text/plain");
+            con.setDoOutput(true);
+            byte[] out = payload.getBytes(StandardCharsets.UTF_8);
+            con.getOutputStream().write(out);
+            int stat = con.getResponseCode();
+            System.out.println(con.getResponseMessage());
+            con.disconnect();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            todo="bad";
+        } catch (IOException e) {
+            e.printStackTrace();
+            todo="bad2";
+        }
+    }
+
+    public List<String> getTodo() {
+        try {
+//            URL url = new URL("http://todo-svc/todo/api/v1/todo");
+            URL url = new URL("http://127.0.0.1:8081/todo/api/v1/todo");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("Content-Type", "text/html; charset=UTF-8");
             con.setConnectTimeout(2000);
             con.setReadTimeout(1000);
             int status = con.getResponseCode();
-            System.out.printf("response status" + status);
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
             String inputLine;
@@ -54,9 +73,14 @@ public class LPService {
             todo="bad";
         } catch (IOException e) {
             e.printStackTrace();
-            todo="bad";
+            todo="bad2";
         }
-        return todo;
+        JSONArray jsonArray = new JSONArray(todo);
+        List<String> todoList = jsonArray.toList().stream()
+                .map(Object::toString)
+                .collect(Collectors.toList());
+
+        return todoList;
     }
 
     public void getLP() {

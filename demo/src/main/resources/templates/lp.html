@@ -7,9 +7,9 @@
 <body>
     <img th:src="@{${imageDir}}" />
 
-    <form action="/action_page.php">
+    <form action="#" th:action="@{/todo}" method="post">
         <label for="todo">TODO</label>
-        <input type="text" id="todo" name="todo" maxlength="140">
+        <input type="text" id="todo" th:value="${todoItem}" name="todoItem" maxlength="140">
         <input type="submit" value="create TODO">
     </form>
 
