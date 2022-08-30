@@ -8,12 +8,10 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.http.HttpClient;
 import java.nio.charset.StandardCharsets;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,14 +19,14 @@ import java.util.stream.Collectors;
 public class LPService {
     private final String fileName = "uploads/image.jpg";
 
+    private final String todoUrl = "demo/src/main/resources/templates/lp.html";
 
     String todo;
     List<String> todoList;
 
     public void postTodo(String payload) {
         try {
-//            URL url = new URL("http://todo-svc/todo/api/v1/todo");
-            URL url = new URL("http://127.0.0.1:8081/todo/api/v1/todo");
+            URL url = new URL(todoUrl);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "text/plain; charset=UTF-8");
@@ -50,8 +48,7 @@ public class LPService {
 
     public List<String> getTodo() {
         try {
-//            URL url = new URL("http://todo-svc/todo/api/v1/todo");
-            URL url = new URL("http://127.0.0.1:8081/todo/api/v1/todo");
+            URL url = new URL(todoUrl);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("Content-Type", "text/html; charset=UTF-8");
