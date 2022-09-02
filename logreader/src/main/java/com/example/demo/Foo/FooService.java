@@ -12,7 +12,8 @@ import java.util.Scanner;
 public class FooService {
 
     private static final String fileDir = System.getenv("FILE_DIR") + "/logwriter.txt";
-    private static final String pingpongDir = System.getenv("FILE_DIR") + "/pingpong.txt";
+    // private static final String pingpongDir = System.getenv("FILE_DIR") + "/pingpong.txt";
+    private static final String extraWord = System.getenv("EXTRA_WORD");
 
 
     public String getFoo() {
@@ -49,7 +50,7 @@ public class FooService {
             dataPingPong="no ping pong!";
         }
 
-        return data + "\n" + dataPingPong;
+        return extraWord + "\n" + data + "\n" + dataPingPong;
     }
 
     public String readLog(String fileDir) {
