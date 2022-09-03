@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-ss
+  namespace: exercise
+spec:
+  serviceName: postgres-headless-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresapp
+  template:
+    metadata:
+      namespace: exercise
+      labels:
+        app: postgresapp
+    spec:
+      containers:
+        - name: postgresapp
+          image: postgres:14.5-alpine
+          ports:
+            - name: postgressql
+              containerPort: 5432
+              protocol: TCP
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: PASS
+            - name: POSTGRES_DB
+              value: pingpong
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        namespace: exercise
+      spec:
+        accessModes: 
+          - "ReadWriteOnce"
+        storageClassName: local-path
+        resources:
+          requests:
+            storage: 100Mi

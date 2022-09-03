@@ -21,4 +21,11 @@ public class FooController {
         return fooService.getFoo();
     }
 
+
+    @GetMapping(path = "test")
+    public String getTest() {
+        return fooService.getTest();
+    }
+
+
 }

@@ -24,4 +24,5 @@ public class PingPongController {
     public String getPong() {
         return ppService.getPong();
     }
+
 }
