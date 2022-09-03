@@ -23,6 +23,16 @@ spec:
           env:
             - name: FILE_DIR
               value: /usr/src/app/files
+            - name: PG_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: USER
+            - name: PG_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: PASS
           volumeMounts:
             - name: shared-img
               mountPath: /usr/src/app/files

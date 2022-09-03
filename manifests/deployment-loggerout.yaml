@@ -36,6 +36,16 @@ spec:
                 configMapKeyRef:
                   name: my-configmap
                   key: extra_word
+            - name: PG_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: USER
+            - name: PG_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: PASS
           volumeMounts:
             - name: shared-img
               mountPath: /usr/src/app/files
