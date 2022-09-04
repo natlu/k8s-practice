@@ -23,4 +23,15 @@ spec:
           volumeMounts:
             - name: shared-img
               mountPath: /uploads
+          env:
+            - name: PG_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: USER
+            - name: PG_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: PASS
 

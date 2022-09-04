@@ -18,12 +18,18 @@ public class TodoController {
     @GetMapping
     public List<String> getTodo() {
         return todoService.getTodo();
-
     }
 
+//    @PostMapping
+//    public void addTodo(@RequestBody String todoItem) {
+//        todoService.addTodo(todoItem);
+//    }
+
     @PostMapping
-    public void addTodo(@RequestBody String todoItem) {
-        todoService.addTodo(todoItem);
+    public void addTodo(@RequestBody Todo todo) {
+        System.out.printf("todo------------------");
+        System.out.printf(todo.toString());
+        todoService.addTodo(todo);
     }
 
 }

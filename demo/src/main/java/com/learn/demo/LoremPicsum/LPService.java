@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class LPService {
     private final String fileName = "uploads/image.jpg";
 
-    private final String todoUrl = "demo/src/main/resources/templates/lp.html";
+    private final String todoUrl = "http://todo-svc/todo/api/v1/todo";
 
     String todo;
     List<String> todoList;
@@ -29,10 +29,10 @@ public class LPService {
             URL url = new URL(todoUrl);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
-            con.setRequestProperty("Content-Type", "text/plain; charset=UTF-8");
-            con.setRequestProperty("Accept", "text/plain");
+            con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             con.setDoOutput(true);
-            byte[] out = payload.getBytes(StandardCharsets.UTF_8);
+            String payloadJson = "{\"item\":\"" + payload + "\"}";
+            byte[] out = payloadJson.getBytes(StandardCharsets.UTF_8);
             con.getOutputStream().write(out);
             int stat = con.getResponseCode();
             System.out.println(con.getResponseMessage());
@@ -51,7 +51,7 @@ public class LPService {
             URL url = new URL(todoUrl);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
-            con.setRequestProperty("Content-Type", "text/html; charset=UTF-8");
+            con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             con.setConnectTimeout(2000);
             con.setReadTimeout(1000);
             int status = con.getResponseCode();
