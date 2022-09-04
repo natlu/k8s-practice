@@ -40,4 +40,4 @@ build/
 */.mvn
 
 
-admin/secret.yaml
+**/secret.yaml

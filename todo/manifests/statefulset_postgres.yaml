@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-ss
+  namespace: project
+spec:
+  serviceName: postgres-headless-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresapp
+  template:
+    metadata:
+      namespace: project
+      labels:
+        app: postgresapp
+    spec:
+      containers:
+        - name: postgresapp
+          image: postgres:14.5-alpine
+          lifecycle:
+            postStart:
+              exec:
+                # command: ["/bin/bash","-c","sleep 5 && PGPASSWORD=$POSTGRES_PASSWORD psql $POSTGRES_DB -U $POSTGRES_USER -c \'DROP TABLE IF EXISTS footbl; CREATE TABLE IF NOT EXISTS footbl (id serial PRIMARY KEY, item TEXT);\'"]
+                command: ["/bin/bash","-c","sleep 5 && PGPASSWORD=$POSTGRES_PASSWORD psql $POSTGRES_DB -U $POSTGRES_USER -c \'CREATE TABLE IF NOT EXISTS footbl (id serial PRIMARY KEY, item TEXT);\'"]
+          ports:
+            - name: postgressql
+              containerPort: 5432
+              protocol: TCP
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: PASS
+            - name: POSTGRES_DB
+              value: todo
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        namespace: project
+      spec:
+        accessModes: 
+          - "ReadWriteOnce"
+        storageClassName: local-path
+        resources:
+          requests:
+            storage: 100Mi
